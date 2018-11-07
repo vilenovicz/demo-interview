@@ -6,6 +6,8 @@ package hands;
 
 import hands.exceptions.IllegalTimeValuesException;
 
+import java.util.Scanner;
+
 import static java.lang.Math.abs;
 
 public class Angle {
@@ -17,7 +19,12 @@ public class Angle {
 
 	public static void main(String[] args){
 		try {
-			System.out.println(getCorner(12, 45));
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Hours = ");
+			int hours = scanner.nextInt();
+			System.out.print("Minutes = ");
+			int minutes = scanner.nextInt();
+			System.out.println(getCorner(hours, minutes));
 		} catch (IllegalTimeValuesException e) {
 			System.out.println(e.getMessage());
 		}
@@ -32,7 +39,12 @@ public class Angle {
 		int degreeMinutes = CIRCLE_DEGREES / MINUTES_IN_HOUR * minutes;
 		int degreeHours = CIRCLE_DEGREES / HOURS * (hours % HOURS) + minutes* DEGREES_BETWEEN_DIGITS / MINUTES_IN_HOUR;
 	
-		return abs(degreeHours - degreeMinutes);
+		int diff = abs((degreeHours - degreeMinutes));
+		if (diff < 180){
+			return diff;
+		} else {
+			return 360-diff;
+		}
 		
 	}
 }
